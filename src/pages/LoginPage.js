@@ -11,6 +11,10 @@ function LoginPage({toggleAuth}) {
 
     function handleSubmit(e) {
         setState(state.name);
+        console.log(`
+        Sending login-details to server...
+        Username = ${state.name}
+        `)
         e.preventDefault();
     }
 
@@ -22,7 +26,8 @@ function LoginPage({toggleAuth}) {
     }
 
     function handleChange(e) {
-            setState(e.target.value);
+        const value = e.target.value;
+        setState({...state, [e.target.name]: value});
     }
 
 
