@@ -7,11 +7,16 @@ function LoginPage({toggleAuth}) {
 
     const [state, setState] = useState({
         name: "",
-        toggleAuth: false,
     })
+
+    function handleSubmit(e) {
+        setState(state.name);
+        e.preventDefault();
+    }
 
     function handleClick() {
         toggleAuth(true)
+        setState(state.name);
         console.log(`${state.name}, je bent ingelogd!`)
         history.push("/blog")
     }
@@ -25,18 +30,20 @@ function LoginPage({toggleAuth}) {
         <div>
             <h1>Login Page</h1>
 
-            <label htmlFor="username_input">Gebruikersnaam:</label>
-            <input
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="username_input">Gebruikersnaam:</label>
+                <input
                     type="text"
                     id="username_input"
                     name="name"
                     value={state.name}
                     onChange={handleChange}
-            />
+                />
 
-            <button type="button" onClick={handleClick}>
-            Log in
-            </button>
+                <button type="submit" onClick={handleClick}>
+                Log in
+                </button>
+            </form>
             
         </div>
     );
