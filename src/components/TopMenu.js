@@ -5,8 +5,9 @@ function TopMenu( {isAuth, toggleAuth}) {
 
     const history = useHistory();
 
-    function signOut() {
+    function logOut() {
         toggleAuth(false);
+        console.log("You are logged out")
         history.push("/")
     }
 
@@ -29,7 +30,7 @@ function TopMenu( {isAuth, toggleAuth}) {
                             </li>
 
                             <li>
-                                <button type="button" onClick={signOut}>
+                                <button type="button" onClick={logOut}>
                                     LogOut
                                 </button>
                             </li>
