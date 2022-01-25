@@ -1,7 +1,15 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 
-function TopMenu() {
+function TopMenu( {isAuth, toggleAuth}) {
+
+    const history = useHistory();
+
+    function signOut() {
+        toggleAuth(false);
+        history.push("/")
+    }
+
     return (
         <nav>
             <div className="nav-container">
@@ -12,13 +20,25 @@ function TopMenu() {
                         <NavLink to="/" exact activeClassName="active-link">Home</NavLink>
                     </li>
 
-                    <li>
-                        <NavLink to="/login" exact activeClassName="active-link">Login</NavLink>
-                    </li>
+                    {/*If the user is loggedIn then show blog link and signOut button, otherwise show LogIn button*/}
 
-                    <li>
-                        <NavLink to="/blog" exact activeClassName="active-link">Blog</NavLink>
-                    </li>
+                    {isAuth === true ?
+                        <>
+                            <li>
+                                <NavLink to="/blog" exact activeClassName="active-link">Blog</NavLink>
+                            </li>
+
+                            <li>
+                                <button type="button" onClick={signOut}>
+                                    LogOut
+                                </button>
+                            </li>
+                        </>
+                        :
+                        <li>
+                            <NavLink to="/login" exact activeClassName="active-link">Login</NavLink>
+                        </li>
+                    }
                 </ul>
             </div>
         </nav>
