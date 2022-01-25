@@ -1,13 +1,13 @@
 import React from "react";
-// import { useParams } from "react-router-dom";
+import {useParams} from 'react-router-dom';
 import BlogPost from '../components/BlogPost'
 import posts from '../data/posts.json'
 
 function BlogPostPage() {
-    // const { id } = useParams();
+    const { id } = useParams();
 
-    const blogPost = posts.find((id) => {
-        return id;
+    const blogPost = posts.find((blog) => {
+        return blog.id === id;
     })
 
     return (

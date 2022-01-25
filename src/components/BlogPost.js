@@ -1,7 +1,5 @@
-import posts from '../data/posts.json';
 
 function BlogPost({ title, content, date}) {
-    console.log(posts);
 
     return (
         <>

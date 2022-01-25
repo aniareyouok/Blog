@@ -7,7 +7,7 @@ function TopMenu( {isAuth, toggleAuth}) {
 
     function logOut() {
         toggleAuth(false);
-        console.log("You are logged out")
+        console.log("Je bent uitgelogd")
         history.push("/")
     }
 

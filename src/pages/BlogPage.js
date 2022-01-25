@@ -4,19 +4,18 @@ import ListItem from '../components/ListItem'
 
 function BlogPage() {
 
-    const listOfBlogs = posts.map((blog) => {
-        return `<ListItem
-            adres=blog/:${blog.id};
-            title=${blog.title};
-            />`
-
-        });
-
     return (
         <div>
             <p>Totaal aantal blogs: {posts.length}</p>
             <ul>
-                {listOfBlogs}
+                {posts.map((blog) => {
+                    return <li key={blog.id}>
+                        <ListItem
+                        adres={`blog/${blog.id}`}
+                        title={`${blog.title}`}
+                        />
+                    </li>
+                })};
             </ul>
 
         </div>
