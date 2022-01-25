@@ -4,16 +4,13 @@ import ListItem from '../components/ListItem'
 
 function BlogPage() {
 
-    function listOfBlogs() {
-        for(let i = 0; i < posts.length; i++) {
-            let listItem =
-            `<ListItem
-            adres=blog/:${posts[i].id};
-            title=posts[i].title;
+    const listOfBlogs = posts.map((blog) => {
+        return `<ListItem
+            adres=blog/:${blog.id};
+            title=${blog.title};
             />`
-            return listItem;
-        }
-    }
+
+        });
 
     return (
         <div>
@@ -21,8 +18,6 @@ function BlogPage() {
             <ul>
                 {listOfBlogs}
             </ul>
-
-
 
         </div>
     );

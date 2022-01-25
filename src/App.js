@@ -4,9 +4,8 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
-import { Switch, Route, } from 'react-router-dom'
+import { Switch, Route, Redirect} from 'react-router-dom'
 import TopMenu from "./components/TopMenu";
-import { useHistory } from 'react-router-dom'
 
 // Implementeren:
 // 1. Routing "bedenken" door het Switch en Route component te gebruiken in App.js
@@ -19,38 +18,34 @@ import { useHistory } from 'react-router-dom'
 // 4. Is er een handige manier om al die data niet handmatig uit te hoeven schrijven?
 // 5. Zorg ervoor dat er een link en titel voor iedere post wordt gegenereerd
 
+function PrivateRoute({children, isAuth, ...rest}) {
+    return (
+        <Route {...rest}>
+            {isAuth ? children : <Redirect to="/login" />}
+        </Route>
+    )
+}
+
 function App() {
   // We houden in de state bij of iemand is "ingelogd" (simpele versie)
   const [isAuthenticated, toggleIsAuthenticated ] = useState(false);
 
-  const history = useHistory();
-
-  function LoggedIn() {
-      toggleIsAuthenticated(true)
-      history.push("/blog")
-  }
-
-  function signOut() {
-      toggleIsAuthenticated(false);
-      history.push("/")
-  }
-
   return (
     <div>
-        <TopMenu />
+        <TopMenu isAuth={isAuthenticated} toggleAuth={toggleIsAuthenticated} />
       <Switch>
         <Route exact path="/">
             <HomePage />
         </Route>
         <Route path="/login">
-            <LoginPage />
+            <LoginPage toggleAuth={toggleIsAuthenticated} />
         </Route>
-        <Route exact path="/blog">
+        <PrivateRoute exact path="/blog" isAuth={isAuthenticated}>
             <BlogPage />
-        </Route>
-          <Route path="/blog/:id">
+        </PrivateRoute>
+          <PrivateRoute exact path="/blog/:id" isAuth={isAuthenticated}>
               <BlogPostPage />
-          </Route>
+          </PrivateRoute>
       </Switch>
     </div>
   );
